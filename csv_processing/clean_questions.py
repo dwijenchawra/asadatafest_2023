@@ -31,10 +31,12 @@ def process_line(line, i):
     middle = line[lcounter+1:rcounter]
 
     lsplit = left.split(',')
+    if not lsplit[0].isdigit():
+        return ""
+
+
     # lsplit[0] = str(i)
 
-
-    line = DELIMITER.join(lsplit) + DELIMITER + middle + DELIMITER + right
 
     line = DELIMITER.join(lsplit) + DELIMITER + middle + DELIMITER + right
     
@@ -47,10 +49,11 @@ def process_line(line, i):
       return line
     
 
-i = 0
+
 with open('../data/questionposts.csv', 'r') as infile, open('../data/cleanedquestions.txt', 'w') as outfile:
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
         futures = []
+        i = 0
         for line in infile:
             if i == 0:
                 outfile.write(DELIMITER.join(line.split(",")))
