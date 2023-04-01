@@ -31,15 +31,21 @@ def process_line(line, i):
     middle = line[lcounter+1:rcounter]
 
     lsplit = left.split(',')
-    lsplit[0] = str(i)
+    # lsplit[0] = str(i)
 
-    # print(left)
-    # print(middle)
-    # print(right)
 
-    return DELIMITER.join(lsplit) + DELIMITER + middle + DELIMITER + right
-    return "d"
+    line = DELIMITER.join(lsplit) + DELIMITER + middle + DELIMITER + right
 
+    line = DELIMITER.join(lsplit) + DELIMITER + middle + DELIMITER + right
+    
+    # if there are two delimiters in a row, return an empty string
+    if DELIMITER + DELIMITER in line:
+        return ""
+    if DELIMITER not in line:
+       return ""
+    else:
+      return line
+    
 
 i = 0
 with open('../data/questionposts.csv', 'r') as infile, open('../data/cleanedquestions.txt', 'w') as outfile:
